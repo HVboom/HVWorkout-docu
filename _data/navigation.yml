@@ -1,0 +1,20 @@
+header:
+  - title:      About
+    url:        /about.html
+    key:        about
+  - title:      Features
+    url:        /features/overview.html
+    key:        features
+  - title:      GitLab
+    url:        https://gitlab.hvboom.org/HVboom/HVWorkout
+
+
+features:
+  - title:      Features
+    children:
+      - title:  Create new application
+        url:    /features/create-rails-app.html
+      - title:  Layout
+        url:    /features/layout.html
+      - title:  Authorization
+        url:    /features/authorization.html

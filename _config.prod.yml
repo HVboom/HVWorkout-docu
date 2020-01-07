@@ -1,0 +1,4 @@
+baseurl: 'Projects/HVWorkout'
+url: 'https://hvboom.org'
+source: '/home/jekyll/Projects/HVWorkout'
+destination: '/home/jekyll/Live/HVWorkout'

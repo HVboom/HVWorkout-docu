@@ -1,0 +1,64 @@
+title: HVboom - HVWorkout
+description: HVboom delivers High Value Business Oriented Object Models
+email: Mario@HVboom.ch
+github_username: HVboom
+
+markdown: kramdown
+highlighter : rouge
+# kramdown:
+#   syntax_highlighter_opts:
+#     block:
+#       line_numbers: true
+
+strict_front_matter: true
+baseurl: '/HVWorkout'
+url: 'https://jekyll.hvboom.org'
+port: 8003
+
+target-blank:
+  add_css_classes: target-blank target-blank__icon
+
+collections:
+  features:
+    output: true
+    permalink: '/features/:path.html'
+
+theme: jekyll-text-theme
+
+author:
+  name      : Mario Lotz
+  type      : # "person" (default), "organization"
+  url       :
+  avatar    : /assets/images/Mario.jpg
+  bio       : 
+  email     : Mario@HVboom.ch
+  linkedin  : mario-lotz # "user_name" the last part of your profile url, e.g. https://www.linkedin.com/in/user_name
+  github    : HVboom # "user_name" the last part of your profile url, e.g. https://github.com/user_name
+
+defaults:
+  -
+    scope:
+      path: ''
+    values:
+      author: Mario
+      layout: 'article'
+      full_width: false
+      show_title: true
+      show_tags: true
+      aside:
+        toc: true
+  -
+    scope:
+      path: '_features'
+    values:
+      author: Mario
+      layout: 'article'
+      full_width: false
+      show_title: true
+      show_tags: true
+      nav_key: 'features'
+      sidebar:
+        nav: 'features'
+      aside:
+        toc: true
+

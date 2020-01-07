@@ -1,0 +1,10 @@
+Mario:
+  name      : Mario Lotz
+  type      : # "person" (default), "organization"
+  url       :
+  avatar    : /assets/images/Mario.jpg
+  bio       : 
+  email     : Mario@HVboom.ch
+  linkedin  : mario-lotz # "user_name" the last part of your profile url, e.g. https://www.linkedin.com/in/user_name
+  github    : HVboom # "user_name" the last part of your profile url, e.g. https://github.com/user_name
+

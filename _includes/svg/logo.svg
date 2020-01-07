@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
+
+<svg id='HVboom-logo'
+     xmlns='http://www.w3.org/2000/svg'
+     xmlns:xlink='http://www.w3.org/1999/xlink'
+     version='1.2'
+     baseProfile='tiny'
+     width='512px'
+     height='512px'
+     viewBox='0 0 512 512'
+     preserveAspectRatio='xMidYMid meet'
+     style='zoom: 1;'>
+  <title id='HVboom-title'>Stars</title>
+  <defs id='HVboom-defs'>
+    <symbol id='HVboom-star'>
+      <path d='M75 5 l75 60 l90 -40 l-50 78 l80 62 l-110 -15 l-45 75 l-15 -84 l-95 -16 l85 -32 z'></path>
+    </symbol>
+    <!-- <solidColor id='HVboom-blue-light' solid-color='#72eae4'></solidColor> -->
+    <radialGradient id='HVboom-radial-blue' cx='40%' cy='40%' fx='40%' fy='45%' r='40%'>
+      <stop id='stop1' stop-color='#72eae4' offset='0'></stop>
+      <!-- <stop id='stop1' stop-color='url(#HVboom-blue-light)' offset='0'></stop> -->
+      <stop id='stop2' stop-color='#4079bb' offset='100'></stop>
+    </radialGradient>
+    <radialGradient id='HVboom-radial-green' cx='40%' cy='40%' fx='40%' fy='45%' r='40%'>
+      <stop id='stop1' stop-color='#b8ff71' offset='0'></stop>
+      <stop id='stop2' stop-color='#218739' offset='100'></stop>
+    </radialGradient>
+  </defs>
+  <g id='HVboom-background'>
+    <rect id='background' stroke='#000000' x='0' y='0' height='512' width='512' stroke-width='0px' fill='#aedfdf' transform=''></rect>
+    <rect id='frame' stroke='#4079bb' x='8' y='8' height='496' width='496' stroke-width='4px' fill='#ffffff' fill-opacity='0.0' transform=''></rect>
+  </g>
+  <g id='HVboom-stars'>
+    <use id='HVboom-little-star'
+         xlink:href="#HVboom-star"
+         transform='translate(85,140) scale(0.4)'
+         fill='url(#HVboom-radial-blue)'
+         stroke='#4079bb' stroke-width='1px'>
+    </use>
+    <use id='HVboom-upper-star'
+         xlink:href="#HVboom-star"
+         transform='translate(210,25)'
+         fill='url(#HVboom-radial-green)'
+         stroke='#218739' stroke-width='1px'>
+    </use>
+    <use id='HVboom-lower-star'
+         xlink:href="#HVboom-star"
+         transform='translate(120,255)'
+         fill='url(#HVboom-radial-green)'
+         stroke='#218739' stroke-width='1px'>
+    </use>
+  </g>
+</svg>
