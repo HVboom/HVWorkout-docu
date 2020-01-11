@@ -112,9 +112,27 @@ aside:
       ```
 			
 
+## [Fontawesome](https://github.com/tomkra/font_awesome5_rails#3-install-with-webpack) setup
+* Add the `gem 'font_awesome5_rails'` and follow the [instructions](https://hackernoon.com/integrate-bootstrap-4-and-font-awesome-5-in-rails-6-u87u32zd) to add the package by calling `yarn add @fortawesome/fontawesome-free`
+* Activate fontawsome styles `app/javascript/stylesheets/application.scss`:
+  ```scss
+  @import 'bootstrap_custom';
+  @import '~bootstrap/scss/bootstrap';
+  @import '@fortawesome/fontawesome-free';
+  @import 'site';
+  ```
+* Activate fontawsome to be used in javascripts in file `app/javascript/packs/application.js`:
+  ```javascript
+  ...
+  // Activate fontawesome
+  import '@fortawesome/fontawesome-free/js/all';
+  ...
+  ```
+
+
 ## Favicon
 * Ideas taken from following [tutorial](https://medium.com/tech-angels-publications/bundle-your-favicons-with-webpack-b69d834b2f53)
-* Use the online tool `https://realfavicongenerator.net/favicon/ruby_on_rails` to generate all necessary files to have favicons optimized for all different browsers.
+* Use the online tool [RealFaviconGenerator.net](https://realfavicongenerator.net/favicon/ruby_on_rails) to generate all necessary files to have favicons optimized for all different browsers.
 *  Option 1 - use the geneated files and follow the tutorial
     * Copy the generated files into `app/javascript/favicons/`
     * Create a script `app/javascript/favicons/favicon.js` to copy these files into the public target directory
