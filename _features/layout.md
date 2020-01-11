@@ -112,6 +112,125 @@ aside:
       ```
 			
 
+## Favicon
+* Ideas taken from following [tutorial](https://medium.com/tech-angels-publications/bundle-your-favicons-with-webpack-b69d834b2f53)
+* Use the online tool `https://realfavicongenerator.net/favicon/ruby_on_rails` to generate all necessary files to have favicons optimized for all different browsers.
+*  Option 1 - use the geneated files and follow the tutorial
+    * Copy the generated files into `app/javascript/favicons/`
+    * Create a script `app/javascript/favicons/favicon.js` to copy these files into the public target directory
+      ```javascript
+      const faviconsContext = require.context(
+        '!!file-loader?name=media/favicons/[name].[ext]!.',
+        true,
+        /\.(svg|png|ico|xml|webmanifest)$/
+      );
+      faviconsContext.keys().forEach(faviconsContext);
+      ```
+		* Include that script in `app/javascript/packs/application.js`
+		  ```javascript
+      ...
+      // Copy favicon related files
+      import '../favicons/favicon'
+      ...
+      ```
+    * Create a partial to be included into the head part of the layout `app/views/layout/_favicon.html.haml`:
+      ```haml
+      %link{href: "#{asset_pack_path 'media/favicons/apple-touch-icon.png'}", rel: "apple-touch-icon", sizes: "180x180"}/
+      %link{href: "#{asset_pack_path 'media/favicons/favicon-32x32.png'}", rel: "icon", sizes: "32x32", type: "image/png"}/
+      %link{href: "#{asset_pack_path 'media/favicons/favicon-16x16.png'}", rel: "icon", sizes: "16x16", type: "image/png"}/
+      %link{href: "#{asset_pack_path 'media/favicons/favicon.ico'}", rel: "shortcut icon"}/
+      %link{href: "#{asset_pack_path 'media/favicons/safari-pinned-tab.svg'}", rel: "mask-icon", color: "#5bbad5"}/
+      %link{href: "#{asset_pack_path 'media/favicons/site.webmanifest'}", rel: "manifest"}/
+      %meta{content: "HVWorkout", name: "apple-mobile-web-app-title"}/
+      %meta{content: "HVWorkout", name: "application-name"}/
+      %meta{content: "#ffffff", name: "theme-color"}/
+      %meta{content: "#2b5797", name: "msapplication-TileColor"}/
+      %meta{content: "#{asset_pack_path 'media/favicons/browserconfig.xml'}", name: "msapplication-config"}/
+      ```
+      * Include that partial in `app/views/layout/application.html.haml`
+      ```haml
+      !!!
+      %html{lang: 'en'}
+        %head
+          ...
+          = render 'layouts/favicon'
+          ...
+        
+        %body.hvworkout
+        ...
+      ```
+  * Option 2 - use the gem file and follow the instructions provided for Ruby On Rails
+      * Remark: I had to increase the timeout in file `rails_real_favicon-0.0.13/lib/generators/favicon_generator.rb`:
+        ```ruby
+        ...
+        resp = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https", read_timeout: 200) do |http|
+        ...
+        ```
+      * My configuration files looks like:
+        ```json
+        {
+          "master_picture": "app/javascript/images/Stars.svg",
+          "favicon_design": {
+            "ios": {
+              "picture_aspect": "no_change",
+              "assets": {
+                "ios6_and_prior_icons": false,
+                "ios7_and_later_icons": true,
+                "precomposed_icons": true,
+                "declare_only_default_icon": true
+              }
+            },
+            "desktop_browser": [
+        
+            ],
+            "windows": {
+              "picture_aspect": "no_change",
+              "background_color": "#da532c",
+              "on_conflict": "override",
+              "assets": {
+                "windows_80_ie_10_tile": false,
+                "windows_10_ie_11_edge_tiles": {
+                  "small": false,
+                  "medium": true,
+                  "big": false,
+                  "rectangle": false
+                }
+              }
+            },
+            "android_chrome": {
+              "picture_aspect": "no_change",
+              "theme_color": "#ffffff",
+              "manifest": {
+                "name": "HVWorkout",
+                "start_url": "https:\/\/hvworkout.demo.hvboom.org",
+                "display": "standalone",
+                "orientation": "not_set",
+                "on_conflict": "override",
+                "declared": true
+              },
+              "assets": {
+                "legacy_icon": false,
+                "low_resolution_icons": false
+              }
+            },
+            "safari_pinned_tab": {
+              "picture_aspect": "black_and_white",
+              "threshold": 76.09375,
+              "theme_color": "#5bbad5"
+            }
+          },
+          "settings": {
+            "scaling_algorithm": "Mitchell",
+            "error_on_image_too_small": false,
+            "readme_file": false,
+            "html_code_file": true,
+            "use_path_as_is": false
+          }
+        }
+        ```
+      * Attention: the generated file `config/favicon.yml` is not working with Rails 6, therefore you have to adapt the files more or less like for option 1
+
+
 ## Static pages
 * Ideas taken from following [tutorial](https://www.learnenough.com/ruby-on-rails-4th-edition-tutorial/static_pages#sec-static_pages)
 * Create the static pages controller: `rails generate controller StaticPages home about`
