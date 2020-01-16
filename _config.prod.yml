@@ -1,4 +1,4 @@
-baseurl: 'Projects/HVWorkout'
-url: 'https://hvboom.org'
+baseurl: '/HVWorkout'
+url: 'https://docs.hvboom.org'
 source: '/home/jekyll/Projects/HVWorkout'
 destination: '/home/jekyll/Live/HVWorkout'
