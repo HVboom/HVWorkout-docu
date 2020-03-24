@@ -28,12 +28,36 @@ aside:
       
       $font-family-sans-serif: Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !default;
       $font-family-monospace: 'Anonymous Pro', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
-      
-      $font-size-base: 1.25rem;
+
+      $enable-responsive-font-sizes: true;
       ```
-  * the `app/javascript/stylesheets/_site.scss` file will contain all other styling adjustments, e.g. the necessary adjustment for the fixed header - see application layout definition below:
+  * the `app/javascript/stylesheets/_site.scss` file will contain all other styling adjustments, e.g. helper classes to show screen size dependent content or the necessary adjustment for the fixed header - see application layout definition below:
       ```scss
       .hvworkout {
+        // define utility classes to hide content on smaller screens
+        &__d-xl-only,
+        &__d-lg-only,
+        &__d-md-only,
+        &__d-sm-only,
+        &__d-xs-only {
+          display: none;
+        }   
+        @include media-breakpoint-only(xl) {
+          &__d-xl-only { display: initial; }
+        }   
+        @include media-breakpoint-only(lg) {
+          &__d-lg-only { display: initial; }
+        }   
+        @include media-breakpoint-only(md) {
+          &__d-md-only { display: initial; }
+        }   
+        @include media-breakpoint-only(sm) {
+          &__d-sm-only { display: initial; }
+        }   
+        @include media-breakpoint-only(xs) {
+          &__d-xs-only { display: initial; }
+        }   
+
         // using fixed top navigation - therfore a padding for <main> is necessary
         &__has-fixed-top-header { padding-top: 4.5rem; }
       }
@@ -94,22 +118,35 @@ aside:
       %body.hvworkout
         %header
           = render 'layouts/navigation'
-        %main.container.hvworkout__has-fixed-top-header
+        %main.container-md.hvworkout__has-fixed-top-header
           = yield
     ```
   * The navigation partial `app/views/layout/_navigation.html.haml` defines a standard header fixed at the top:
       ```haml
       %nav.navbar.fixed-top.navbar-expand-md.navbar-light.bg-light
-        .container
-          = link_to 'HVboom - HVWorkout', root_path, class: 'navbar-brand'
+        .container-md
+          = render 'layouts/brand'
           %button.navbar-toggler{'data-target': '#navbar', 'data-toggle': 'collapse', 'aria-controls': 'navbar', 'aria-expanded': 'false', 'aria-label': 'Toggle navigation', type: 'button'}
             %span.navbar-toggler-icon
           #navbar.collapse.navbar-collapse
             %ul.navbar-nav.ml-auto
               %li.nav-item
-                = link_to 'Home', home_path, class: 'nav-link'
-              %li.nav-item= link_to 'About', about_path, class: 'nav-link'
+                = link_to home_path, class: 'nav-link' do
+                  = fa_icon 'home'
+                  Home
+              %li.nav-item
+                = link_to about_path, class: 'nav-link' do
+                  = fa_icon 'address-card'
+                  About
       ```
+    * The brand partial `app/views/layout/_brand.html.haml` defines an applications branding, which is optimized for different screen sizes:
+        ```haml
+        = link_to root_path, class: 'navbar-brand' do
+          = image_pack_tag 'Stars.svg', class: 'hvworkout__brand-img'
+          %span.hvworkout__d-xl-only.hvworkout__d-lg-only HVboom - HVWorkout
+          %span.hvworkout__d-md-only.hvworkout__d-sm-only HVboom
+        ```
+
 			
 
 ## [Fontawesome](https://github.com/tomkra/font_awesome5_rails#3-install-with-webpack) setup
