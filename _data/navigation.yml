@@ -16,5 +16,5 @@ features:
         url:    /features/create-rails-app.html
       - title:  Layout
         url:    /features/layout.html
-      - title:  Authorization
-        url:    /features/authorization.html
+      - title:  Authentication
+        url:    /features/authentication.html

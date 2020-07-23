@@ -9,7 +9,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'jekyll', '3.8.6'
+gem 'jekyll' # , '4.1.1'
 
 # This is the default theme for new Jekyll sites. You may change this to anything you like.
 gem "jekyll-text-theme"
@@ -17,8 +17,7 @@ gem "jekyll-text-theme"
 # If you have any plugins, put them here!
 group :jekyll_plugins do
   gem 'jekyll-feed'
-  gem 'jekyll-haml'
-  gem 'jekyll-admin', '0.8.1'
+  gem 'jekyll-admin' # , '0.10.2'
   gem 'jekyll-target-blank'
   # gem 'jekyll-plantuml'
 end

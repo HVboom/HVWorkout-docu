@@ -14,6 +14,7 @@ strict_front_matter: true
 baseurl: '/HVWorkout'
 url: 'https://jekyll.hvboom.org'
 port: 8003
+images: '/HVWorkout/assets/images/'
 
 target-blank:
   add_css_classes: target-blank target-blank__icon
