@@ -5,8 +5,8 @@ header:
   - title:      Features
     url:        /features/overview.html
     key:        features
-  - title:      GitLab
-    url:        https://gitlab.hvboom.org/HVboom/HVWorkout
+  - title:      GitHub
+    url:        https://github.com/HVboom/HVWorkout
 
 
 features:
@@ -16,5 +16,8 @@ features:
         url:    /features/create-rails-app.html
       - title:  Layout
         url:    /features/layout.html
+      - title:  Multi-Language
+        url:    /features/multi-language.html
       - title:  Authentication
         url:    /features/authentication.html
+

@@ -1,4 +1,4 @@
-#ruby=ruby-2.6.5
+#ruby=ruby-2.7.2
 #ruby-gemset=HVWorkout
 #
 
