@@ -104,10 +104,11 @@ aside:
 * Change the content of the `app/views/layout/application.html.haml` to look like:
   ```haml
   !!!
-  %html{lang: 'en'}
+  %html
     %head
-      %meta{'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8'}/
-      %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0', shrink-to-fit=no'}/
+      %meta{'http-equiv': 'content-type', content: 'text/html; charset=UTF-8'}/
+      %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0, shrink-to-fit=no'}/
+      %meta{'http-equiv': 'content-language', content: "#{locale}"}/
       %title= content_for?(:title) ? yield(:title) : HVWorkout
       %meta{name: 'description', content: "#{content_for?(:description) ? yield(:description) : 'HVWorkout - Tracking Kieser Training exercises'}"}/
       = csrf_meta_tags
@@ -115,10 +116,11 @@ aside:
       = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
       = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   
-    %body.hvworkout
+    %body.hvworkout{class: "#{controller.controller_name}"}
       %header
         = render 'layouts/navigation'
-      %main.container-md.hvworkout__has-fixed-top-header
+      %main.container-md.hvworkout__has-fixed-top-header{role: 'main'}
+        = render 'layouts/messages'
         = yield
   ```
   * The navigation partial `app/views/layout/_navigation.html.haml` defines a standard header fixed at the top:
@@ -139,15 +141,24 @@ aside:
                 = fa_icon 'address-card'
                 About
     ```
-    * The brand partial `app/views/layout/_brand.html.haml` defines an applications branding, which is optimized for different screen sizes:
+  * The brand partial `app/views/layout/_brand.html.haml` defines an applications branding, which is optimized for different screen sizes:
       ```haml
       = link_to root_path, class: 'navbar-brand' do
         = image_pack_tag 'Stars.svg', class: 'hvworkout__brand-img'
         %span.hvworkout__d-xl-only.hvworkout__d-lg-only HVboom - HVWorkout
         %span.hvworkout__d-md-only.hvworkout__d-sm-only HVboom
       ```
+  * The messages partial `app/views/layout/_messages.html.haml` defines a the display of the flash messages:
 
-			
+      ```haml
+      -# Rails flash messages styled for Bootstrap 4.0
+      - flash.each do |name, msg|
+        - if msg.is_a?(String)
+            .alert{class: "alert-#{name.to_s == 'notice' ? 'success' : 'danger'}", role: 'alert'}
+                %button.close{'aria-hidden': 'true', 'data-dismiss': 'alert', type: 'button'} &times;
+                = content_tag :div, msg, id: "flash_#{name}"
+      ```
+
 
 ## [Fontawesome](https://github.com/tomkra/font_awesome5_rails#3-install-with-webpack) setup
 * Add the `gem 'font_awesome5_rails'` and follow the [instructions](https://hackernoon.com/integrate-bootstrap-4-and-font-awesome-5-in-rails-6-u87u32zd) to add the package by calling `yarn add @fortawesome/fontawesome-free`
@@ -304,18 +315,16 @@ aside:
 * Adjust the form template to use floating labels - `lib/templates/haml/scaffold/_form.html.haml`
   ```ruby
   -# frozen_string_literal: true
-  = simple_form_for @<%= singular_table_name %>,
-    wrapper: :floating_labels_form,
-    wrapper_mappings: {
-      select: :floating_labels_select
-    } do |f|
+  = simple_form_for @<%= singular_table_name %> do |f|
     = f.error_notification
     = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
     .form-inputs
-    <%- attributes.each do |attribute| -%>
-      = f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %>
-    <%- end -%>
+      - attributes.each do |attribute|
+        = f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %>,
+          required: true,
+          autofocus: true,
+          input_html: { autocomplete: '<%= attribute.name %>', placeholder: true }
 
     .form-actions
       = render 'shared/actions', form: f, submit: 'Submit'
@@ -415,4 +424,3 @@ aside:
     end
   end
   ```
-
